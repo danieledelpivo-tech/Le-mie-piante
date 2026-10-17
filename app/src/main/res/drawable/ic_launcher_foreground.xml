@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Foglia -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30 C70,34 76,48 72,62 C68,74 58,78 54,78 C50,78 40,74 36,62 C32,48 38,34 54,30 Z" />
+    <!-- Nervatura -->
+    <path
+        android:strokeColor="#2E6B3A"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M54,38 L54,78 M54,52 L63,45 M54,62 L45,55" />
+    <!-- Goccia -->
+    <path
+        android:fillColor="#9ED3F0"
+        android:pathData="M74,64 C74,64 80,71 80,75 A6,6 0 0,1 68,75 C68,71 74,64 74,64 Z" />
+</vector>
