@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -18,7 +21,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v5
       - name: Test e build
         run: ./gradlew testDebugUnitTest assembleDebug --stacktrace
+      - name: Rinomina APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk le-mie-piante.apk
       - uses: actions/upload-artifact@v5
         with:
           name: le-mie-piante-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: le-mie-piante.apk
+      # Pubblica l'APK come release "ultima-versione": link diretto scaricabile anche da telefono.
+      - name: Pubblica release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete ultima-versione --yes --cleanup-tag || true
+          gh release create ultima-versione le-mie-piante.apk \
+            --title "Le mie piante – ultima versione" \
+            --notes "Build automatica del $(date '+%d/%m/%Y %H:%M') (commit ${GITHUB_SHA::7}). Scarica le-mie-piante.apk e aprilo dal telefono per installarlo." \
+            --target "$GITHUB_SHA" --latest
