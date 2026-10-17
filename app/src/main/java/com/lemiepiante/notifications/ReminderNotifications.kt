@@ -1,6 +1,7 @@
 package com.lemiepiante.notifications
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -36,6 +37,7 @@ object ReminderNotifications {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
 
+    @SuppressLint("MissingPermission") // verificato da canNotify()
     fun show(context: Context, plant: Plant, status: CareStatus) {
         if (!canNotify(context)) return
         val id = notificationId(plant.id, status.type)
